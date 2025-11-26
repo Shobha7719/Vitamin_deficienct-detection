@@ -1,0 +1,94 @@
+/* Ensure your base styles for info-card and info-card-container are here */
+
+.info-card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.info-card {
+    background-color: var(--card-background); /* Or a specific color */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: var(--shadow-small);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 200px; /* Ensure cards have a consistent height */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Align content to the bottom */
+    position: relative; /* For background image positioning */
+    overflow: hidden; /* For rounded corners on background image */
+    background-size: cover;
+    background-position: center;
+    color: white; /* Default text color for cards with background images */
+    text-shadow: 1px 1px 3px rgba(5, 247, 154, 0.7); /* Make text readable over image */
+}
+
+/* Overlay for better text readability on images */
+.info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(244, 241, 241, 0.7) 0%, rgba(253, 253, 253, 0) 50%); /* Gradient from bottom to top */
+    z-index: 1; /* Place above image, below text */
+    border-radius: 12px; /* Match card border-radius */
+}
+
+.info-card h3, .info-card p {
+    position: relative; /* Bring text above the overlay */
+    z-index: 2;
+}
+
+.info-card.clickable-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-large);
+}
+
+.info-card-link {
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Inherit text color from parent */
+}
+
+/* --- Background Images for Each Card --- */
+/* IMPORTANT: Replace the image paths with your actual image paths */
+/* Create a folder like `static/images/deficiencies/` and put your images there */
+
+.card-vitamin-a {
+    background-image: url('../images/vitamin/vitamin_a.png');
+}
+.card-vitamin-b1 {
+    background-image: url('../images/vitamin/vitamin_b1.png');
+}
+.card-vitamin-b2 {
+    background-image: url('../images/vitamin/vitamin_b2.png');
+}
+.card-vitamin-b3 {
+    background-image: url('../images/vitamin/vitamin_b3.png');
+}
+.card-vitamin-b9 {
+    background-image: url('../images/vitamin/vitamin_b9.png');
+}
+.card-vitamin-b12 {
+    background-image: url('../images/vitamin/vitamin_b12.png');
+}
+.card-vitamin-c {
+    background-image: url('../images/vitamin/vitamin_c.png');
+}
+.card-vitamin-d {
+    background-image: url('../images/vitamin/vitamin_d.png');
+}
+.card-vitamin-e {
+    background-image: url('../images/vitamin/vitamin_e.png');
+}
+.card-vitamin-k {
+    background-image: url('../images/vitamin/vitamin_k.png');
+}
+.card-minerals-proteins {
+    background-image: url('../images/vitamin/minerals.png');
+}
+
+/* Ensure other styles for info-section, h2, subtitle etc. are also in description.css */

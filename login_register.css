@@ -1,0 +1,117 @@
+/* static/CSS/login_register.css */
+
+/* General form styling */
+.card {
+    background-color: var(--card-background); /* From home.css or style.css */
+    border-radius: 0.75rem; /* rounded-xl */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+}
+
+.form-group {
+    margin-bottom: 1rem; /* space-y-4 for parent, but good to have explicit margin */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600; /* font-semibold */
+    color: var(--text-color); /* Charcoal Onyx */
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%; /* w-full */
+    padding: 0.75rem 1rem;
+    border: 1px solid #D1D5DB; /* Tailwind's default border-gray-300 */
+    border-radius: 0.375rem; /* rounded-md */
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: #FFFFFF;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color); /* Moonstone Blue on focus */
+    box-shadow: 0 0 0 3px rgba(115, 169, 173, 0.3); /* Ring effect */
+}
+
+/* Tab button styling */
+.tab-button {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--primary-color); /* Moonstone Blue */
+    background-color: transparent;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.tab-button:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: -1px; /* To make borders overlap */
+}
+
+.tab-button:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.tab-button.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.tab-button:hover:not(.active) {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Alert box styling (from your original snippet) */
+.alert-box {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.375rem;
+    font-size: 0.875rem; /* text-sm */
+}
+
+.alert-error {
+    background-color: #FEE2E2; /* Red-100 from Tailwind */
+    color: #DC2626; /* Red-600 from Tailwind */
+    border-color: #EF4444; /* Red-500 from Tailwind */
+}
+
+.alert-success {
+    background-color: #D1FAE5; /* Green-100 from Tailwind */
+    color: #047857; /* Green-700 from Tailwind */
+    border-color: #10B981; /* Green-500 from Tailwind */
+}
+
+/* Inherited button styles from style.css or home.css assumed */
+.btn-primary {
+    background-color: var(--primary-color); /* Moonstone Blue */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: var(--primary-gradient-end); /* Darker Moonstone Blue on hover */
+}
+
+/* Ensure body uses flex-col and min-h-screen for sticky footer */
+body.flex {
+    display: flex;
+    flex-direction: column;
+}
+.flex-grow {
+    flex-grow: 1;
+}

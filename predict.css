@@ -1,0 +1,179 @@
+/* static/predict.css */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F4F1EE; /* Soft Linen background */
+    color: #2C2C2C; /* Charcoal Onyx text */
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Define custom properties for the "Moonstone Mist" color scheme */
+:root {
+    --primary-color: #73A9AD; /* Moonstone Blue */
+    --primary-gradient-start: #73A9AD;
+    --primary-gradient-end: #639296; /* Slightly darker Moonstone Blue */
+    --accent1-color: #B16A5A; /* Burnished Copper */
+    --accent1-hover: #9E5D4F; /* Darker Burnished Copper */
+    --accent2-color: #A7C6BD; /* Eucalyptus Mist */
+    --accent2-hover: #95B4A9; /* Darker Eucalyptus Mist */
+    --background-color: #F4F1EE; /* Soft Linen */
+    --card-background: #FFFFFF; /* White */
+    --text-color: #2C2C2C; /* Charcoal Onyx */
+    --text-color-light: #BFC5C4; /* Pearl Gray for lighter text */
+    --alert-info-bg: #E8F0F0; /* Lighter Moonstone Blue for info alerts */
+    --alert-info-text: #5A8F93; /* Darker Moonstone Blue for info alert text */
+    --alert-info-border: #8CB9BC; /* Medium Moonstone Blue for info alert border */
+    --alert-warning-bg: #FBF5F2; /* Lighter Burnished Copper for warning alerts */
+    --alert-warning-text: #B16A5A; /* Burnished Copper for warning alert text */
+    --alert-warning-border: #D09B8F; /* Medium Burnished Copper for warning alert border */
+    --alert-error-bg: #FDE7E7; /* Light Red for error alerts */
+    --alert-error-text: #DC2626; /* Red for error alert text */
+    --alert-error-border: #FCA5A5; /* Lighter Red for error alert border */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.header {
+    background-color: var(--primary-color); /* Moonstone Blue */
+    background-image: linear-gradient(to right, var(--primary-gradient-start), var(--primary-gradient-end)); /* Moonstone Blue gradient */
+    color: white;
+    padding: 1.5rem 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header h1 {
+    font-size: 2.25rem; /* text-3xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 0.5rem;
+}
+
+.header nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 1rem; /* space-x-4 */
+}
+
+.header nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header nav ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--background-color); /* Soft Linen for hover text */
+}
+
+.card {
+    background-color: var(--card-background); /* White */
+    border-radius: 1rem; /* More rounded corners */
+    box-shadow: 0 44px 12px rgba(0, 0, 0, 0.08); /* Softer shadow */
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color); /* Moonstone Blue */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem; /* Rounded button */
+    font-weight: 600;
+    text-decoration: none; /* For anchor tags */
+    display: inline-block; /* For anchor tags */
+    transition: background-color 0.3s ease;
+}
+.btn-primary:hover {
+    background-color: var(--primary-gradient-end); /* Darker Moonstone Blue on hover */
+}
+
+.btn-secondary {
+    background-color: var(--accent2-color); /* Eucalyptus Mist */
+    color: var(--text-color); /* Charcoal Onyx text */
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    text-decoration: none; /* For anchor tags */
+    display: inline-block; /* For anchor tags */
+    transition: background-color 0.3s ease;
+}
+.btn-secondary:hover {
+    background-color: var(--accent2-hover); /* Darker Eucalyptus Mist on hover */
+}
+
+input[type="checkbox"], input[type="text"], input[type="password"], textarea, input[type="file"] {
+    accent-color: var(--primary-color); /* Moonstone Blue checkbox */
+    border-radius: 0.5rem;
+    border: 1px solid var(--text-color-light); /* Pearl Gray border */
+    padding: 0.5rem 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--text-color); /* Charcoal Onyx */
+}
+
+input[type="checkbox"] {
+    width: auto; /* Override 100% for checkboxes */
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color); /* Charcoal Onyx */
+}
+
+.alert-box {
+    padding: 1rem;
+    border-radius: 0.75rem;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+.alert-info {
+    background-color: var(--alert-info-bg);
+    color: var(--alert-info-text);
+    border: 1px solid var(--alert-info-border);
+}
+.alert-warning {
+    background-color: var(--alert-warning-bg);
+    color: var(--alert-warning-text);
+    border: 1px solid var(--alert-warning-border);
+}
+.alert-error {
+    background-color: var(--alert-error-bg);
+    color: var(--alert-error-text);
+    border: 1px solid var(--alert-error-border);
+}
+
+.footer {
+    background-color: var(--primary-color); /* Moonstone Blue */
+    color: white;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .header {
+        flex-direction: row;
+    }
+    .header h1 {
+        margin-bottom: 0;
+    }
+}
+

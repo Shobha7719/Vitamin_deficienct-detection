@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}How It Works - VitaDetect{% endblock %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='CSS/how_it_works.css') }}">{% endblock %}
+
+{% block content %}
+<section class="info-section">
+    <h2>How VitaDetect Works</h2>
+    <p class="subtitle">Simple steps to get your preliminary health insights.</p>
+
+    <div class="step-by-step-guide">
+        <div class="step-card animate-slide-in-left step-1-bg"> {# Add a specific class for each step's background #}
+            <div class="step-number">1</div>
+            <h3>Register & Login</h3>
+            <p>Create a free account or log in if you're an existing user. Your data is kept secure and private.</p>
+            {# Removed <img src="..."> #}
+        </div>
+
+        <div class="step-card animate-slide-in-right step-2-bg"> {# Add a specific class for each step's background #}
+            <div class="step-number">2</div>
+            <h3>Upload or Capture Image</h3>
+            <p>On the 'Predict' page, you can either upload an image from your device or use your device's camera to capture a new photo.</p>
+            {# Removed <img src="..."> #}
+        </div>
+
+        <div class="step-card animate-slide-in-left step-3-bg"> {# Add a specific class for each step's background #}
+            <div class="step-number">3</div>
+            <h3>AI Analysis</h3>
+            <p>Our advanced MobileNetV2 model processes your image, analyzing visual cues that may indicate a vitamin deficiency.</p>
+            {# Removed <img src="..."> #}
+        </div>
+
+        <div class="step-card animate-slide-in-right step-4-bg"> {# Add a specific class for each step's background #}
+            <div class="step-number">4</div>
+            <h3>Get Instant Prediction</h3>
+            <p>Receive an immediate prediction of potential deficiencies along with a confidence score. This helps you understand the likelihood of the prediction.</p>
+            {# Removed <img src="..."> #}
+        </div>
+
+        <div class="step-card animate-slide-in-left step-5-bg"> {# Add a specific class for each step's background #}
+            <div class="step-number">5</div>
+            <h3>Consult a Professional</h3>
+            <p>Remember, VitaDetect provides preliminary insights. Always consult a healthcare professional for a definitive diagnosis and personalized advice.</p>
+            {# Removed <img src="..."> #}
+        </div>
+    </div>
+
+    <div class="disclaimer-box">
+        <h4>Important Disclaimer:</h4>
+        <p>VitaDetect is an AI-powered tool designed for informational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition.</p>
+        
+    </div>
+</section>
+{% endblock %}

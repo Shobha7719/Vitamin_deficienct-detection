@@ -1,0 +1,220 @@
+/* Custom CSS for the Contact Us page */
+
+/* Background for the entire section */
+.contact-page-section {
+    /* Replace 'your-contact-background.jpg' with the actual path to your image */
+    /* Make sure the image is in the 'static/images' folder, or adjust the path accordingly */
+    background-image: url('../images/background2.png'); /* Example path - UPDATE THIS PATH TO YOUR ACTUAL IMAGE */
+    background-size: cover; /* Ensures the image covers the entire section */
+    background-position: center center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-attachment: fixed; /* Makes the background fixed while content scrolls */
+    color: #fff; /* Light text for better contrast on a potentially dark background */
+    padding: 80px 20px; /* Adjust padding as needed */
+    position: relative; /* Needed for the overlay */
+    text-align: center; /* Center main headings */
+    min-height: 80vh; /* Ensure it takes up enough vertical space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically within the section */
+    align-items: center;
+}
+
+/* Optional: Add an overlay for text readability if your background image is busy */
+.contact-page-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 50% black overlay */
+    z-index: 1; /* Place above background image, below content */
+}
+
+/* Ensure content is above the overlay */
+.contact-page-section h2,
+.contact-page-section .subtitle,
+.contact-grid {
+    position: relative;
+    z-index: 2; /* Content elements need to be above the overlay */
+}
+
+.contact-page-section h2 {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: var(--primary-color, #fff); /* Or a contrasting color, e.g., #FFC107 */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Add shadow for readability */
+}
+
+.contact-page-section .subtitle {
+    font-size: 1.4em;
+    margin-bottom: 50px;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.contact-info-card,
+.contact-form-card {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white cards */
+    border-radius: 12px;
+    padding: 35px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: left; /* Align text within cards */
+    color: #333; /* Dark text inside cards */
+}
+
+.contact-info-card h3,
+.contact-form-card h3 {
+    font-size: 2em;
+    color: var(--secondary-color, #2196F3);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--tertiary-color, #FFC107);
+    padding-bottom: 10px;
+}
+
+.contact-info-card p,
+.contact-info-card ul {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.contact-info-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info-card ul li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.contact-info-card ul li i {
+    margin-right: 10px;
+    color: var(--primary-color, #4CAF50);
+    font-size: 1.2em;
+}
+
+.contact-info-card ul li a {
+    color: var(--text-link-color, #007bff);
+    text-decoration: none;
+}
+
+.contact-info-card ul li a:hover {
+    text-decoration: underline;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group textarea {
+    width: calc(100% - 20px); /* Account for padding */
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.input-group textarea {
+    resize: vertical; /* Allow vertical resizing */
+    min-height: 100px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color, #4CAF50);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #3e8e41; /* Darker green on hover */
+    transform: translateY(-2px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-page-section {
+        padding: 60px 15px;
+    }
+    .contact-page-section h2 {
+        font-size: 2.5em;
+    }
+    .contact-page-section .subtitle {
+        font-size: 1.2em;
+    }
+    .contact-grid {
+        grid-template-columns: 1fr; /* Stack cards on smaller screens */
+        gap: 25px;
+    }
+    .contact-info-card,
+    .contact-form-card {
+        padding: 30px;
+    }
+    .contact-info-card h3,
+    .contact-form-card h3 {
+        font-size: 1.8em;
+    }
+    .contact-info-card p,
+    .contact-info-card ul {
+        font-size: 1em;
+    }
+    .input-group input,
+    .input-group textarea {
+        padding: 10px;
+    }
+    .btn-primary {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-page-section {
+        padding: 40px 10px;
+    }
+    .contact-page-section h2 {
+        font-size: 2em;
+    }
+    .contact-page-section .subtitle {
+        font-size: 1em;
+    }
+    .contact-info-card,
+    .contact-form-card {
+        padding: 20px;
+    }
+    .contact-info-card h3,
+    .contact-form-card h3 {
+        font-size: 1.5em;
+    }
+    .contact-info-card p,
+    .contact-info-card ul {
+        font-size: 0.95em;
+    }
+}

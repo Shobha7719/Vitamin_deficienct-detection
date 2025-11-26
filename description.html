@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Understanding Vitamin Deficiencies - VitaDetect{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/description.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="info-section">
+    <h2>Understanding Vitamin Deficiencies</h2>
+    <p class="subtitle">Click on a deficiency to learn more about its symptoms, remedies, and implications.</p>
+
+    <div class="info-card-container"> {# Container for clickable cards #}
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='vitamin_a') }}" class="info-card-link">
+            <div class="info-card clickable-card card-vitamin-a">
+                <h3>Vitamin A Deficiency</h3>
+                <p>Can affect vision, immune function, and skin health. Click to learn more.</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='vitamin_b1') }}" class="info-card-link">
+            <div class="info-card clickable-card card-vitamin-b1">
+                <h3>Vitamin B1 (Thiamine) Deficiency</h3>
+                <p>Essential for energy and nerve function; deficiency can impact metabolism and neurological health. Click to learn more.</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='vitamin_b2') }}" class="info-card-link">
+            <div class="info-card clickable-card card-vitamin-b2">
+                <h3>Vitamin B2 (Riboflavin) Deficiency</h3>
+                <p>Crucial for energy production and cell growth; deficiency can lead to skin and eye issues. Click to learn more.</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='vitamin_b3') }}" class="info-card-link">
+            <div class="info-card clickable-card card-vitamin-b3">
+                <h3>Vitamin B3 (Niacin) Deficiency</h3>
+                <p>Important for energy, digestion, and skin; severe deficiency leads to Pellagra. Click to learn more.</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='vitamin_b9') }}" class="info-card-link">
+            <div class="info-card clickable-card card-vitamin-b9">
+                <h3>Vitamin B9 (Folate) Deficiency</h3>
+                <p>Critical for cell growth and blood formation; especially vital during pregnancy. Click to learn more.</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='vitamin_b12') }}" class="info-card-link">
+            <div class="info-card clickable-card card-vitamin-b12">
+                <h3>Vitamin B12 Deficiency</h3>
+                <p>Important for nerve function and red blood cell formation; deficiency can lead to anemia and neurological issues. Click to learn more.</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='vitamin_c') }}" class="info-card-link">
+            <div class="info-card clickable-card card-vitamin-c">
+                <h3>Vitamin C Deficiency</h3>
+                <p>Crucial for immune system, skin, and wound healing; severe deficiency leads to scurvy. Click to learn more.</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='vitamin_d') }}" class="info-card-link">
+            <div class="info-card clickable-card card-vitamin-d">
+                <h3>Vitamin D Deficiency</h3>
+                <p>Essential for bone health and calcium absorption; linked to bone weakness and other health issues. Click to learn more.</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='vitamin_e') }}" class="info-card-link">
+            <div class="info-card clickable-card card-vitamin-e">
+                <h3>Vitamin E Deficiency</h3>
+                <p>A powerful antioxidant vital for immune function and cell protection. Click to learn more.</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='vitamin_k') }}" class="info-card-link">
+            <div class="info-card clickable-card card-vitamin-k">
+                <h3>Vitamin K Deficiency</h3>
+                <p>Essential for blood clotting and bone health; deficiency can lead to bleeding issues. Click to learn more.</p>
+            </div>
+        </a>
+
+        <a href="{{ url_for('deficiency_detail', vitamin_name='minerals_proteins') }}" class="info-card-link">
+            <div class="info-card clickable-card card-minerals-proteins">
+                <h3>Mineral/Protein Deficiencies</h3>
+                <p>Includes essential elements like Iron, Zinc, Biotin, and overall protein, vital for various bodily functions. Click to learn more.</p>
+            </div>
+        </a>
+
+    </div> {# End info-card-container #}
+
+    <div class="info-card">
+        <h3>Why Early Detection Matters</h3>
+        <p>Early detection of vitamin deficiencies is crucial because it allows for timely intervention through dietary changes or supplementation. This can prevent the progression of symptoms and reduce the risk of long-term health complications. While VitaDetect provides a preliminary assessment, it serves as a helpful tool to encourage individuals to seek professional medical advice if potential issues are identified.</p>
+    </div>
+</section>
+{% endblock %}

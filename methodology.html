@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Our Methodology{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/methodology.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="methodology-section">
+    <div class="container">
+        <h1>Our Vitamin Deficiency Detection Methodology</h1>
+        <p class="intro-text">
+            Our vitamin deficiency detection system leverages advanced deep learning techniques to analyze images and identify potential vitamin and mineral deficiencies. The core of the system is built upon a pre-trained ResNet152V2 convolutional neural network, fine-tuned on a custom dataset of images exhibiting various deficiency symptoms.
+        </p>
+
+        <div class="methodology-step">
+            <h2>1. Dataset Preparation and Augmentation</h2>
+            <p>The foundation of our model is a carefully curated dataset of images, each labeled with a specific vitamin or mineral deficiency. To ensure our model learns robustly and generalizes well to new, unseen images, we employ rigorous data preparation and augmentation techniques.</p>
+            <ul>
+                <li><strong>Dataset Source:</strong> The system utilizes a custom dataset organized into distinct folders, where each folder represents a specific vitamin or mineral deficiency (e.g., "Vitamin A deficiency," "Vitamin B12 deficiency"). The dataset is located at <code>C:\vitamin_project\dataset\vitamin_project_dataset</code>.</li>
+                <div class="methodology-image-container">
+                <img src="../static/images/methodology/dataset.png" alt="fig1. Dataset images used for program">
+                <p class="image-caption">fig1 Visual representation of dataset applied to the program.</p>
+            </div>
+                <li><strong>Image Preprocessing:</strong> All images are resized to a uniform 224x224 pixels to match the input requirements of the ResNet152V2 model.</li>
+                <li><strong>Data Splitting:</strong> The dataset is implicitly split into training, validation, and test sets using <code>ImageDataGenerator.flow_from_directory</code>, with the <code>train_dir</code>, <code>val_dir</code>, and <code>test_dir</code> pointing to the same base directory, meaning the generator handles the internal splitting if specified or loads data from the same source for different purposes.</li>
+                <li><strong>Data Augmentation (Training):</strong> To enhance the model's generalization capabilities and prevent overfitting, extensive data augmentation techniques are applied to the training set. These include:
+                    <ul>
+                        <li>Rescaling pixel values to 0-1.</li>
+                        <li>Random rotations (<code>rotation_range=20</code>).</li>
+                        <li>Random width and height shifts (<code>width_shift_range=0.2</code>, <code>height_shift_range=0.2</code>).</li>
+                        <li>Random shearing (<code>shear_range=0.2</code>).</li>
+                        <li>Random zooming (<code>zoom_range=0.2</code>).</li>
+                        <li>Horizontal flipping (<code>horizontal_flip=True</code>).</li>
+                        <li>Filling new pixels with the nearest available pixel (<code>fill_mode='nearest'</code>).</li>
+                    </ul>
+                </li>
+                <li><strong>Validation and Test Data:</strong> Validation and test sets are only rescaled to 0-1 to maintain their original characteristics without introducing artificial variations.</li>
+            </ul>
+            <div class="methodology-image-container">
+                <img src="../static/images/methodology/mode architecture.png" alt="Dataset Preparation and Augmentation Process">
+                <p class="image-caption">Visual representation of model architecture.</p>
+            </div>
+        </div>
+
+        <div class="methodology-step">
+            <h2>2. Model Architecture and Fine-tuning</h2>
+            <p>Our detection system is powered by a highly capable neural network architecture, leveraging the power of transfer learning.</p>
+            <ul>
+                <li><strong>Base Model:</strong> We employ <strong>ResNet152V2</strong> as the foundational convolutional base. ResNet152V2 is a deep residual network pre-trained on the vast ImageNet dataset, allowing our model to leverage powerful, pre-learned features for image recognition.</li>
+                <li><strong>Transfer Learning Strategy:</strong> The entire ResNet152V2 base model is loaded with <code>imagenet</code> weights and all its layers are initially set to <code>trainable=True</code>. This "full fine-tuning" approach allows the pre-trained weights to be adjusted during training, adapting them specifically to the nuances of our vitamin deficiency dataset.</li>
+                <li><strong>Custom Classification Head:</strong> A custom classification head is appended to the <code>base_model</code>'s output:
+                    <ul>
+                        <li><code>GlobalAveragePooling2D</code>: Reduces the spatial dimensions of the feature maps, making the model more robust to input variations.</li>
+                        <li><code>BatchNormalization</code>: Stabilizes and accelerates the training process by normalizing the activations of the previous layer.</li>
+                        <li><code>Dense Layers</code>: Two fully connected (Dense) layers with <code>relu</code> activation (2048 and 1024 neurons) are used to learn high-level representations from the pooled features.</li>
+                        <li><code>Dropout</code>: Dropout layers (0.4 and 0.3) are strategically placed after the dense layers to randomly deactivate neurons during training, further preventing overfitting.</li>
+                        <li>Output Layer: A final Dense layer with <code>num_classes</code> neurons (equal to the number of distinct deficiencies in the dataset) and a <code>softmax</code> activation function outputs the probability distribution over the different deficiency classes.</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="methodology-image-container">
+                <img src="../static/images/methodology/model.png" alt="ResNet152V2 Model Architecture with Custom Head">
+                <p class="image-caption">Diagram illustrating the ResNet152V2 base model and the custom classification layers.</p>
+            </div>
+        </div>
+
+        <div class="methodology-step">
+            <h2>3. Model Compilation and Training</h2>
+            <p>The training phase is carefully controlled to optimize model performance and efficiency.</p>
+            <ul>
+                <li><strong>Optimizer:</strong> The Adam optimizer is used for training, known for its adaptive learning rate capabilities. An initial learning rate of <code>1e-4</code> is set.</li>
+                <li><strong>Loss Function:</strong> <code>Categorical_crossentropy</code> is chosen as the loss function, suitable for multi-class classification problems where each input belongs to exactly one class.</li>
+                <li><strong>Metrics:</strong> Model performance is monitored using accuracy.</li>
+                <li><strong>Callbacks:</strong>
+                    <ul>
+                        <li><strong>Early Stopping:</strong> Training automatically stops if the validation loss does not improve for <code>patience=5</code> epochs, and the model's best weights (from the epoch with the lowest validation loss) are restored. This prevents extended training on stagnant performance.</li>
+                        <li><strong>ReduceLROnPlateau:</strong> If the validation loss plateaus (doesn't improve for <code>patience=5</code> epochs), the learning rate is reduced by a factor of <code>0.2</code>, helping the model to escape local minima. The minimum learning rate is set to <code>1e-6</code>.</li>
+                        <div class="methodology-image-container">
+                <img src="../static/images/methodology/epochs.png" alt="Model Training Loss and Accuracy Graph">
+                <p class="image-caption">Example loss/accuracy over epochs.</p>
+            </div>
+                    </ul>
+                </li>
+                <li><strong>Training Process:</strong> The model is trained for a maximum of 50 epochs, with the actual number of epochs determined by the early stopping mechanism.</li>
+            </ul>
+            <div class="methodology-image-container">
+                <img src="../static/images/methodology/plot.png" alt="Model Training Loss and Accuracy Graph">
+                <p class="image-caption">Example graph showing training and validation loss/accuracy over epochs.</p>
+            </div>
+        </div>
+
+        <div class="methodology-step">
+            <h2>4. Model Evaluation and Deployment</h2>
+            <p>After training, the model undergoes rigorous evaluation to confirm its effectiveness, followed by integration into our web application.</p>
+            <ul>
+                <li><strong>Performance Metrics:</strong> After training, the model's performance is rigorously evaluated on the unseen <code>test_generator</code> data. Key metrics include:
+                    <ul>
+                        <li>Test Accuracy: Overall accuracy on the test set.</li>
+                        <li>Classification Report: Provides precision, recall, and F1-score for each class, offering a detailed understanding of the model's performance per deficiency type.</li>
+                        <div class="methodology-image-container">
+                <img src="../static/images/methodology/classification_report.png" alt="Confusion Matrix of Model Performance">
+                <p class="image-caption">Sample classification report across different deficiency types.</p>
+            </div>
+                        <li>Confusion Matrix: Visualizes the true vs. predicted classifications, helping to identify which classes are being confused with others.</li>
+                        <div class="methodology-image-container">
+                <img src="../static/images/methodology/confusion_matrix.png" alt="Confusion Matrix of Model Performance">
+                <p class="image-caption">Sample confusion matrix showcasing model's classification accuracy across different deficiency types.</p>
+            </div>
+                    </ul>
+                </li>
+                <li><strong>Model Saving:</strong> The trained model is saved in the <code>vitamin_deficiency_model.h5</code> format.</li>
+                <li><strong>Class Mapping:</strong> The mapping of class names to their numerical indices (e.g., <code>{"Vitamin A deficiency": 0, "Vitamin B12 deficiency": 1}</code>) is saved to <code>class_indices.json</code>, which is crucial for interpreting predictions in the web application.</li>
+                <li><strong>Web Application Integration:</strong> The saved model and class indices are loaded into the Flask web application, allowing users to upload images or use their webcam for real-time deficiency predictions. The prediction result, along with a confidence score, is then displayed to the user.</li>
+            </ul>
+            <div class="methodology-image-container">
+                <img src="../static/images/methodology/result.png" alt="Confusion Matrix of Model Performance">
+                <p class="image-caption">Sample confusion matrix showcasing model's classification accuracy across different deficiency types.</p>
+            </div>
+        </div>
+
+        <p class="conclusion-text">
+            This meticulous approach ensures that our vitamin deficiency detection system is accurate, robust, and provides valuable insights to users.
+        </p>
+    </div>
+</section>
+{% endblock %}

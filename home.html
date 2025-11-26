@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}VitaDetect - Vitamin Deficiency Predictor{% endblock %}
+
+{% block custom_css %}
+<link rel="stylesheet" href="../static/CSS/style.css">
+<link rel="stylesheet" href="../static/CSS/home.css">
+{% endblock %}
+
+{% block content %}
+
+{# Hero Section - Top of the page #}
+<section class="hero-section">
+    <div class="hero-content">
+        <h2>Uncover Your Health with VitaDetect</h2>
+        <p>Your intelligent assistant for predicting vitamin deficiencies from images.</p>
+        <div class="hero-buttons">
+            {% if current_user.is_authenticated %}
+                <a href="/predict" class="btn btn-primary animate-hover">Start Prediction</a>
+            {% else %}
+                <a href="/register" class="btn btn-primary animate-hover">Get Started</a>
+                <a href="/login" class="btn btn-secondary animate-hover">Log In</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-image">
+        {# Image handled by CSS background for .hero-section #}
+    </div>
+</section>
+
+{# About Section - MODIFIED for background image with overlayed content - Full Width Background #}
+<section id="about" class="info-section about-section">
+    <h2>About VitaDetect</h2>
+    <div class="about-bg-image about-content-overlay"> {# Moved this directly under the h2 #}
+        <div class="about-text-content info-content-full-width"> {# Added info-content-full-width here to constrain text #}
+            <p>VitaDetect is dedicated to revolutionizing health diagnostics through cutting-edge artificial intelligence. Our mission is to empower individuals to gain quick and easy insights into potential vitamin deficiencies, simply by analyzing images.</p>
+            <p>Founded by a team of passionate researchers and developers, VitaDetect combines expertise in machine learning, medical imaging, and nutritional science. We believe that preventative health measures should be accessible to everyone, and our platform aims to provide a convenient, non-invasive tool to support this.</p>
+            <p>Our core technology leverages MobileNetV2, a highly efficient convolutional neural network, trained on a diverse dataset of images related to various nutritional markers. This allows us to offer predictions with confidence scores, helping users understand their health status better and encouraging them to seek professional medical advice if needed.</p>
+            <p>We are committed to continuous improvement, data privacy, and ethical AI practices, ensuring that VitaDetect remains a reliable and trustworthy partner in your wellness journey.</p>
+        </div>
+    </div>
+</section>
+
+{# Features Section - MODIFIED for background image with overlayed content - Full Width Background #}
+<section id="features" class="info-section features-section">
+    <h2>Why Choose VitaDetect?</h2>
+    <div class="features-bg-image"> {# Moved this directly under the h2 #}
+        <div class="features-text-content info-content-full-width"> {# Added info-content-full-width here to constrain text #}
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-flask fa-3x"></i>
+                    <h4>Advanced AI Detection</h4>
+                    <p>Utilizes state-of-the-art MobileNetV2 for accurate predictions.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-camera fa-3x"></i>
+                    <h4>Easy Image Upload</h4>
+                    <p>Upload photos from your device or use your camera directly.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-user-shield fa-3x"></i>
+                    <h4>Secure & Private</h4>
+                    <p>Your data is protected with secure authentication.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line fa-3x"></i>
+                    <h4>Instant Insights</h4>
+                    <p>Get immediate results and confidence scores for your predictions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# How It Works Section - MODIFIED for background image with overlayed content - Full Width Background #}
+<section id="how-it-works" class="info-section how-it-works-section">
+    <h2>How VitaDetect Works</h2>
+    <div class="how-it-works-bg-image how-it-works-content-overlay"> {# Moved this directly under the h2 #}
+        <div class="how-it-works-text-content info-content-full-width"> {# Added info-content-full-width here to constrain text #}
+            <div class="step-detail">
+                <h3>Step 1: Upload Your Image</h3>
+                <p>Easily upload a clear image from your device's gallery or capture one directly using your camera. Our system is designed to process various image types for analysis.</p>
+            </div>
+            <div class="step-detail">
+                <h3>Step 2: AI Analysis</h3>
+                <p>Once uploaded, our advanced AI model (MobileNetV2) instantly analyzes the image. It processes visual cues to identify potential indicators related to nutritional deficiencies.</p>
+            </div>
+            <div class="step-detail">
+                <h3>Step 3: Get Your Prediction</h3>
+                <p>Receive an immediate prediction regarding potential vitamin deficiencies, along with a confidence score. This insight helps you understand areas where you might need to focus on your diet or consult a professional.</p>
+            </div>
+            <div class="step-detail">
+                <h3>Step 4: Take Action</h3>
+                <p>Based on your results, you can make informed decisions about your health. Remember, VitaDetect is a screening tool, and professional medical advice should always be sought for diagnosis and treatment.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Call to Action Section - MODIFIED for background image with overlayed content - Full Width Background #}
+<section class="info-section call-to-action-section">
+    <h2>Ready to Discover Your Nutritional Health?</h2>
+    <div class="cta-bg-image"> {# Moved this directly under the h2 #}
+        <div class="cta-text-content info-content-full-width"> {# Added info-content-full-width here to constrain text #}
+            <p>Take the first step towards a more informed and healthier you. It's quick, easy, and secure!</p>
+            <div class="cta-buttons">
+                {% if current_user.is_authenticated %}
+                    <a href="/predict" class="btn btn-primary animate-hover">Start Your Prediction Now!</a>
+                {% else %}
+                    <a href="/register" class="btn btn-primary animate-hover">Join VitaDetect Today!</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Contact Us Section - MODIFIED for background image with overlayed content - Full Width Background #}
+<section id="contact-us" class="info-section contact-section">
+    <h2>Contact Us</h2>
+    <div class="contact-bg-image"> {# Moved this directly under the h2 #}
+        <div class="contact-text-content info-content-full-width"> {# Added info-content-full-width here to constrain text #}
+            <p>Have questions, feedback, or need support? We're here to help!</p>
+
+            <div class="contact-info-grid">
+                <div class="info-item">
+                    <i class="fas fa-envelope fa-2x"></i>
+                    <h4>Email Us</h4>
+                    <p><a href="mailto:support@vitadetect.com">support@vitadetect.com</a></p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone fa-2x"></i>
+                    <h4>Call Us</h4>
+                    <p>+91 123 456 7890</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt fa-2x"></i>
+                    <h4>Our Location</h4>
+                    <p>123 Health Tech Avenue, Wellness City, State, Country</p>
+                </div>
+            </div>
+
+            <h3>Send Us a Message</h3>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message:</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

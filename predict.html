@@ -1,0 +1,468 @@
+{% extends "base.html" %}
+
+{% block title %}Predict Vitamin Deficiency{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/home.css') }}">
+    <style>
+        /* Styles for the "Know More" link/button */
+        .know-more-btn {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary-color); /* Use your theme's secondary color */
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 600;
+            text-align: center; /* Center text for the button */
+        }
+        .know-more-btn:hover {
+            background-color: #364B61; /* Darker secondary */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px var(--shadow-medium);
+        }
+
+        /* Basic styling for confidence bar (if not already in predict.css) */
+        .confidence-bar-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            height: 10px;
+            margin-top: 10px;
+            overflow: hidden; /* Ensures the bar inside stays within bounds */
+        }
+
+        .confidence-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%; /* Initial width, will be set by JS */
+            border-radius: 5px;
+            transition: width 1s ease-out; /* Smooth animation */
+        }
+        .prediction-results-container {
+            margin-top: 40px;
+            border-left: 5px solid var(--primary-color);
+            padding: 30px;
+            background-color: var(--card-bg); /* Assuming you have this in your theme */
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--shadow-light);
+            text-align: center; /* Center contents in the result box */
+        }
+        .prediction-results-container h3 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .result-details .uploaded-image-preview {
+            max-width: 250px; /* Slightly larger preview */
+            margin: 0 auto 25px auto;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px var(--shadow-medium);
+            background-color: white; /* Ensures background is white if image has transparency */
+            display: flex; /* For centering the image */
+            justify-content: center;
+            align-items: center;
+            padding: 5px; /* Little padding inside border */
+        }
+        .result-details .uploaded-image-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px; /* Match container border-radius */
+        }
+        .predicted-class {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.4em;
+            display: block; /* Make it block to take full width */
+            margin-bottom: 5px;
+        }
+        .confidence-score {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.2em;
+            display: block; /* Make it block to take full width */
+            margin-bottom: 15px;
+        }
+
+        /* General layout adjustments for section */
+        .predict-section {
+            padding: 50px 0;
+            text-align: center;
+        }
+        .predict-section h2 {
+            font-size: 2.5em;
+            color: var(--heading-color);
+            margin-bottom: 10px;
+        }
+        .predict-section .subtitle {
+            font-size: 1.2em;
+            color: var(--text-color);
+            margin-bottom: 40px;
+        }
+        .prediction-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+        .prediction-options .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--shadow-light);
+            padding: 30px;
+            width: 45%; /* Adjust width for two columns */
+            min-width: 300px; /* Minimum width for cards */
+            text-align: left; /* Align text within cards */
+        }
+        .prediction-options .card h3 {
+            font-size: 1.6em;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .file-upload-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+        .inputfile + label {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--tertiary-color); /* A different color for upload button */
+            color: white;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 600;
+        }
+        .inputfile + label:hover {
+            background-color: #5a8e63; /* Darker tertiary */
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px var(--shadow-medium);
+        }
+        .file-name-display {
+            font-size: 0.9em;
+            color: var(--light-text-color);
+            flex-grow: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .upload-section .btn-primary {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .camera-section .btn-tertiary {
+            width: 100%;
+            margin-bottom: 25px;
+        }
+        .camera-feed-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #000; /* Black background for video feed */
+        }
+        #videoFeed {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transform: scaleX(-1); /* Mirror camera feed */
+        }
+        #captureButton {
+            margin-top: 20px;
+            width: 100%;
+        }
+        .status-message {
+            margin-top: 15px;
+            font-style: italic;
+            font-size: 0.95em;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .prediction-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            .prediction-options .card {
+                width: 90%; /* Full width on small screens */
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<section class="predict-section">
+    <h2>Predict Vitamin Deficiency</h2>
+    <p class="subtitle">Upload an image or use your camera to get a health insight.</p>
+
+    <div class="prediction-options">
+        <div class="upload-section card">
+            <h3>Upload Image</h3>
+            <form id="uploadForm" method="POST" action="{{ url_for('predict') }}" enctype="multipart/form-data">
+                <div class="file-upload-wrapper">
+                    <input type="file" name="image_upload" id="imageUpload" accept="image/*" class="inputfile" onchange="displayFileName()">
+                    <label for="imageUpload" class="btn btn-secondary animate-hover">
+                        <i class="fas fa-cloud-upload-alt"></i> Choose a file
+                    </label>
+                    <span id="fileNameDisplay" class="file-name-display">No file chosen</span>
+                </div>
+                <button type="submit" class="btn btn-primary animate-button">Predict from Upload</button>
+            </form>
+        </div>
+
+        <div class="camera-section card">
+            <h3>Capture from Camera</h3>
+            <button id="startCameraButton" class="btn btn-tertiary animate-hover">
+                <i class="fas fa-video"></i> Start Camera
+            </button>
+            <div class="camera-feed-container" style="display: none;">
+                <video id="videoFeed" autoplay playsinline></video>
+                <canvas id="canvas" style="display: none;"></canvas>
+                <button id="captureButton" class="btn btn-primary animate-button" style="display: none;">
+                    <i class="fas fa-camera"></i> Capture Photo
+                </button>
+                <div class="spinner" id="cameraSpinner" style="display: none;"></div>
+            </div>
+            <p id="cameraStatus" class="status-message"></p>
+        </div>
+    </div>
+
+    {# Prediction results for uploaded image #}
+    {% if prediction_result %}
+    <div class="prediction-results-container card animate-fade-in">
+        <h3>Prediction Result (Upload)</h3>
+        <div class="result-details">
+            {% if image_path %}
+                <div class="uploaded-image-preview">
+                    <img src="{{ image_path }}" alt="Uploaded Image">
+                </div>
+            {% endif %}
+            <p><strong>Predicted Class:</strong> <span class="predicted-class">{{ prediction_result.class }}</span></p>
+            <p><strong>Confidence:</strong> <span class="confidence-score">{{ prediction_result.confidence }}</span></p>
+            <!-- Add this in your HTML file where you show the confidence bar -->
+<div class="confidence-container">
+    <div class="confidence-bar" style="width: {{ prediction_result.confidence | replace('%', '') | float }}%;"></div>
+</div>
+
+            {# "Know More" Link for Uploaded Image Prediction #}
+            {# Check if deficiency_details (which should be the slug for the link) is provided #}
+            {% if deficiency_details %}
+                <a href="/deficiency/{{deficiency_details}}" class="know-more-btn">
+                    <i class="fas fa-info-circle"></i> Know More About {{ prediction_result.class }} Deficiency
+                </a>
+            {% else %}
+                <p class="status-message" style="margin-top: 20px;">No specific information link available for this prediction (Upload).</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    {# Prediction results for camera #}
+    <div class="prediction-results-container card animate-fade-in" id="cameraPredictionResults" style="display: none;">
+        <h3>Camera Prediction Result</h3>
+        <div class="result-details">
+            <div class="uploaded-image-preview">
+                <img id="cameraPredictionImage" src="" alt="Captured Image">
+            </div>
+            <p><strong>Predicted Class:</strong> <span id="cameraPredictedClass" class="predicted-class"></span></p>
+            <p><strong>Confidence:</strong> <span id="cameraConfidenceScore" class="confidence-score"></span></p>
+
+            <div class="confidence-bar-container">
+                <div id="cameraConfidenceBar" class="confidence-bar"></div>
+            </div>
+
+            {# This is where the camera prediction's "Know More" link will be dynamically inserted #}
+            <div id="camKnowMoreLinkContainer"></div> 
+            {# Initially hidden, JS will make it block and insert content #}
+
+        </div>
+    </div>
+
+</section>
+{% endblock %}
+
+{% block custom_js %}
+<script>
+    function displayFileName() {
+        const input = document.getElementById('imageUpload');
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        if (input.files.length > 0) {
+            fileNameDisplay.textContent = input.files[0].name;
+        } else {
+            fileNameDisplay.textContent = 'No file chosen';
+        }
+    }
+
+    const startCameraButton = document.getElementById('startCameraButton');
+    const videoFeed = document.getElementById('videoFeed');
+    const captureButton = document.getElementById('captureButton');
+    const canvas = document.getElementById('canvas');
+    const cameraFeedContainer = document.querySelector('.camera-feed-container');
+    const cameraStatus = document.getElementById('cameraStatus');
+    const cameraSpinner = document.getElementById('cameraSpinner');
+
+    const cameraPredictionResults = document.getElementById('cameraPredictionResults');
+    const cameraPredictionImage = document.getElementById('cameraPredictionImage');
+    const cameraPredictedClass = document.getElementById('cameraPredictedClass');
+    const cameraConfidenceScore = document.getElementById('cameraConfidenceScore');
+    const cameraConfidenceBar = document.getElementById('cameraConfidenceBar');
+    const camKnowMoreLinkContainer = document.getElementById('camKnowMoreLinkContainer');
+
+
+    let stream;
+
+    startCameraButton.addEventListener('click', async () => {
+        cameraStatus.textContent = 'Starting camera...';
+        cameraStatus.style.color = 'var(--light-text-color)';
+        cameraSpinner.style.display = 'block';
+        // Hide previous camera prediction results and know more link
+        cameraPredictionResults.style.display = 'none';
+        camKnowMoreLinkContainer.style.display = 'none';
+        camKnowMoreLinkContainer.innerHTML = ''; // Clear content
+
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            videoFeed.srcObject = stream;
+            cameraFeedContainer.style.display = 'block';
+            videoFeed.style.display = 'block';
+            captureButton.style.display = 'block';
+            startCameraButton.style.display = 'none';
+            cameraStatus.textContent = 'Camera active. Position your hand for prediction.';
+            cameraStatus.style.color = 'var(--primary-color)';
+            cameraSpinner.style.display = 'none';
+
+        } catch (err) {
+            console.error("Error accessing camera: ", err);
+            cameraStatus.textContent = 'Error: Could not access camera. Please allow camera permissions.';
+            cameraStatus.style.color = 'var(--flash-danger)';
+            cameraSpinner.style.display = 'none';
+        }
+    });
+
+    captureButton.addEventListener('click', () => {
+        cameraStatus.textContent = 'Capturing image and predicting...';
+        cameraStatus.style.color = 'var(--light-text-color)';
+        cameraSpinner.style.display = 'block';
+        videoFeed.pause();
+
+        const context = canvas.getContext('2d');
+        canvas.width = videoFeed.videoWidth;
+        canvas.height = videoFeed.videoHeight;
+        context.drawImage(videoFeed, 0, 0, canvas.width, canvas.height);
+        const imageDataURL = canvas.toDataURL('image/png');
+
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+            videoFeed.srcObject = null;
+        }
+        videoFeed.style.display = 'none';
+        captureButton.style.display = 'none';
+        startCameraButton.style.display = 'block';
+
+        // Clear previous know more link content before new prediction
+        camKnowMoreLinkContainer.innerHTML = '';
+        camKnowMoreLinkContainer.style.display = 'none';
+
+
+        fetch('{{ url_for("predict_camera") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ imageData: imageDataURL }),
+        })
+        .then(response => {
+            console.log("Raw fetch response object:", response); // For debugging
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    console.error("Server responded with a non-OK status. Error details:", errorData);
+                    throw new Error(`Server Error (${response.status}): ${errorData.error || JSON.stringify(errorData)}`);
+                }).catch(e => {
+                    console.error("Failed to parse non-OK response as JSON:", e);
+                    throw new Error(`HTTP error! status: ${response.status} (Could not parse error details)`);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+    cameraSpinner.style.display = 'none';
+
+    if (data.error) {
+        cameraStatus.textContent = `Error: ${data.error}`;
+        cameraStatus.style.color = 'var(--flash-danger)';
+        cameraPredictionResults.style.display = 'none';
+        return;
+    }
+
+    // Set image and show preview
+    if (data.image_url) {
+        cameraPredictionImage.src = data.image_url;
+        cameraPredictionImage.style.display = 'block';
+    } else {
+        cameraPredictionImage.src = '';
+        cameraPredictionImage.style.display = 'none';
+    }
+
+    // Display prediction
+    cameraPredictionResults.style.display = 'block';
+    cameraPredictedClass.textContent = data.predicted_class || 'N/A';
+    cameraConfidenceScore.textContent = data.confidence || '0%';
+
+    const confidenceValue = parseFloat((data.confidence || '0%').replace('%', '')) || 0;
+    cameraConfidenceBar.style.width = confidenceValue + '%';
+
+    // "Know More" link logic
+    camKnowMoreLinkContainer.innerHTML = '';
+    if (data.know_more_link) {
+        const knowMoreLink = document.createElement('a');
+        knowMoreLink.href = data.know_more_link;
+        knowMoreLink.classList.add('know-more-btn');
+        knowMoreLink.innerHTML = `<i class="fas fa-info-circle"></i> Know More About ${data.predicted_class} Deficiency`;
+        camKnowMoreLinkContainer.appendChild(knowMoreLink);
+    } else {
+        const genericMessage = document.createElement('p');
+        genericMessage.style.marginTop = '20px';
+        genericMessage.style.color = 'var(--light-text-color)';
+        genericMessage.textContent = 'No specific information link available for this prediction.';
+        camKnowMoreLinkContainer.appendChild(genericMessage);
+    }
+    camKnowMoreLinkContainer.style.display = 'block';
+    cameraStatus.textContent = 'Prediction complete!';
+    cameraStatus.style.color = 'var(--flash-success)';
+})
+
+{% endblock %}

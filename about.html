@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - VitaDetect{% endblock %}
+
+{% block custom_css %}
+    {# It's good practice to have a dedicated CSS for specific pages #}
+<link rel="stylesheet" href="../static/CSS/style.css">    {# Keep style.css if it has global styles you still need #}
+<link rel="stylesheet" href="../static/CSS/about.css">{% endblock %}
+{% block content %}
+
+<section class="info-section">
+    <h2>About VitaDetect</h2>
+    <p class="subtitle">Our mission to empower your health journey with cutting-edge technology.</p>
+    
+    <div class="info-card">
+        <h3>Our Story: A Vision for Accessible Health</h3>
+        <p>VitaDetect was born from a shared passion for leveraging the power of artificial intelligence to address a fundamental health challenge: the early detection of nutritional deficiencies. We observed that traditional methods for identifying these imbalances were often cumbersome, expensive, or simply inaccessible to many. This realization sparked an idea: what if we could create an intuitive, convenient, and reliable tool that empowers individuals to gain insights into their nutritional health, right from their devices?</p>
+        <p>Our diverse team, comprising leading AI specialists, seasoned health professionals, and dedicated software engineers, united with a common goal. We set out to bridge the gap between complex medical diagnostics and everyday personal health management. VitaDetect is the result of countless hours of research, development, and a steadfast belief that technology can democratize access to vital health information, fostering a healthier, more informed global community.</p>
+    </div>
+
+    <div class="info-card">
+        <h3>Our Vision: Pioneering Proactive Wellness</h3>
+        <p>We aspire to be the vanguard AI-powered platform for preliminary health assessments, with a focused initial commitment to vitamin and mineral deficiencies. Our vision extends to a future where every individual possesses the tools to effortlessly monitor their nutritional status. This enables proactive decision-making towards cultivating a balanced diet and embracing a holistic healthier lifestyle, all seamlessly integrated into their daily routine through the convenience of their smartphone or computer.</p>
+    </div>
+
+    <div class="info-card">
+        <h3>The Technology Behind VitaDetect: Smart, Secure, and Scientific</h3>
+        <p>At the core of VitaDetect is a sophisticated Artificial Intelligence engine, meticulously trained on extensive datasets of health and nutritional information. Our algorithms analyze the symptoms you input, cross-referencing them with known patterns of vitamin and mineral deficiencies.</p>
+        <p>We employ advanced machine learning techniques, including:</p>
+        <ul>
+            <li><strong>Natural Language Processing (NLP):</strong> To accurately interpret your symptom descriptions.</li>
+            <li><strong>Pattern Recognition Algorithms:</strong> To identify correlations between your inputs and specific deficiencies.</li>
+            <li><strong>Predictive Analytics:</strong> To offer preliminary insights and potential areas of concern.</li>
+        </ul>
+        <p>Our system is continuously learning and improving, thanks to ongoing research and development by our expert team. While VitaDetect provides valuable preliminary assessments, it is designed to be a supportive tool, not a replacement for professional medical advice.</p>
+    </div>
+
+    <div class="info-card">
+        <h3>Why Choose VitaDetect? Your Health, Our Priority</h3>
+        <p>In a world where health information can be overwhelming, VitaDetect stands out by offering:</p>
+        <div class="features-list">
+            <div class="feature-item">
+                <i class="fas fa-microscope"></i>
+                <h4>Accuracy & Reliability</h4>
+                <p>Powered by advanced AI and guided by health professionals, providing intelligent insights.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-hand-holding-heart"></i>
+                <h4>User-Friendly Experience</h4>
+                <p>Intuitive design ensures a seamless and straightforward assessment process for everyone.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-lock"></i>
+                <h4>Privacy & Security</h4>
+                <p>Your personal health data is handled with the utmost care, utilizing robust security protocols.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-laptop-medical"></i>
+                <h4>Accessibility</h4>
+                <p>Available anytime, anywhere, putting preliminary health insights at your fingertips.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-card">
+        <h3>Our Data-Driven Approach: Ensuring Relevance and Growth</h3>
+        <p>The intelligence behind VitaDetect is constantly evolving, driven by a meticulous and ethical data-driven approach. We leverage anonymized and aggregated data, strictly adhering to privacy protocols, to refine our algorithms and enhance the accuracy of our predictions. This continuous learning process allows VitaDetect to adapt to new research, improve its understanding of complex symptom patterns, and provide increasingly precise preliminary assessments.</p>
+        <p>Our commitment to data integrity and scientific validation ensures that the insights you receive are not only smart but also grounded in reliable information. We believe that responsible data utilization is key to empowering individuals with better health knowledge.</p>
+    </div>
+
+    <div class="info-card">
+        <h3>Our Commitment to Privacy</h3>
+        <p>We understand that your health information is deeply personal. VitaDetect is built on a foundation of trust and a steadfast commitment to your privacy. We adhere to stringent data protection standards and employ advanced encryption techniques to safeguard your data at every step. We do not share your individual health data with third parties without your explicit consent.</p>
+        <p>Our privacy policy clearly outlines how your data is collected, used, and protected. We believe in transparency and empowering you with control over your personal information.</p>
+    </div>
+
+   
+</section>
+{% endblock %}

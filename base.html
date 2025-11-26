@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VitaDetect - Vitamin Deficiency Predictor{% endblock %}</title>
+    <link rel="stylesheet" href="../static/CSS/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% block custom_css %}{% endblock %} {# Placeholder for page-specific CSS #}
+</head>
+
+<body class="full-page-background"> {# This class is already in your body tag, ready for CSS styling #}
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <h1 class="logo"><a href="/">VitaDetect</a></h1>
+                <ul class="nav-links">
+                    <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/about"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="/how_it_works"><i class="fas fa-question-circle"></i> How it Works</a></li>
+                    <li><a href="/methodology"><i class="fas fa-flask"></i> Methodology</a></li>
+                    <li><a href="/description"><i class="fas fa-book"></i> Description</a></li>
+                    <li><a href="/contact_us"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="/predict"><i class="fas fa-camera"></i> Predict</a></li>
+                        <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                    {% else %}
+                        <li><a href="/register"><i class="fas fa-user-plus"></i> Register</a></li>
+                        <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 VitaDetect. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="../static/js/script.js"></script>
+</body>
+</html>

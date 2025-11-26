@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Detail: {{ vitamin.name }} Deficiency{% endblock %}
+
+{% block custom_css %}
+    <link rel="stylesheet" href="../static/CSS/detail_page.css">
+{% endblock %}
+
+{% block content %}
+<section class="detail-section">
+    <div class="container">
+        <div class="back-links-container">
+            {# This link should go to your general list of deficiencies, using url_for #}
+            <a href="/deficiency/<string:vitamin_name>" class="back-link">&larr; Back to All Deficiencies</a>
+
+     
+            <a href="/predict" class="back-link back-to-prediction-btn">&larr; Back to Prediction Result</a>
+      
+        </div>
+
+        <div class="detail-card">
+            <h1>{{ vitamin.name }} Deficiency</h1>
+            <p class="overview">{{ vitamin.overview }}</p>
+
+            <div class="detail-content">
+                <div class="section-block">
+                    <h2>Description</h2>
+                    <p>{{ vitamin.description }}</p>
+                </div>
+
+                <div class="section-block">
+                    <h2>Common Symptoms</h2>
+                    <ul>
+                        {% for symptom in vitamin.symptoms %}
+                            <li>{{ symptom }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="section-block">
+                    <h2>Common Food Sources</h2>
+                    <ul>
+                        {% for food in vitamin.common_foods %}
+                            <li>{{ food }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="section-block">
+                    <h2>Recommended Daily Intake (Adults)</h2>
+                    {% if vitamin.dri_adult is string %}
+                        <p>{{ vitamin.dri_adult }}</p>
+                    {% else %} {# For cases like minerals_proteins with nested DRI #}
+                        <ul>
+                            {% for key, value in vitamin.dri_adult.items() %}
+                                <li><strong>{{ key | replace('_', ' ') | title }}:</strong> {{ value }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="section-block">
+                    <h2>Risks of Excess Intake</h2>
+                    {% if vitamin.risks_of_excess is string %}
+                        <p>{{ vitamin.risks_of_excess }}</p>
+                    {% else %} {# For cases like minerals_proteins with nested risks #}
+                        <ul>
+                            {% for key, value in vitamin.risks_of_excess.items() %}
+                                <li><strong>{{ key | replace('_', ' ') | title }}:</strong> {{ value }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+
+                <div class="section-block remedies-section">
+                    <h2>Remedies & Management</h2>
+                    <div class="remedy-category">
+                        <h3>Home Remedies / Dietary Changes</h3>
+                        <ul>
+                            {% for remedy in vitamin.remedies.home %}
+                                <li>{{ remedy }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="remedy-category">
+                        <h3>Herbal / Natural Support</h3>
+                        <ul>
+                            {% for remedy in vitamin.remedies.herbal %}
+                                <li>{{ remedy }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="remedy-category">
+                        <h3>Medical Treatments / Consultation</h3>
+                        <ul>
+                            {% for remedy in vitamin.remedies.medical %}
+                                <li>{{ remedy }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section-block">
+                    <h2>Extreme Effects of Untreated Deficiency</h2>
+                    <p class="extreme-effects">{{ vitamin.extreme_effects }}</p>
+                </div>
+
+                <div class="section-block">
+                    <h2>Recommended Specialists/Experts</h2>
+                    <p class="experts">{{ vitamin.expert }}</p>
+                </div>
+
+                <p class="disclaimer">
+                    <strong>Disclaimer:</strong> This information is for educational purposes only and should not be considered medical advice. Always consult with a qualified healthcare professional for diagnosis and treatment of any health condition.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

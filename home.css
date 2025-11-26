@@ -1,0 +1,381 @@
+
+/* ---------------- Hero Section ---------------- */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    padding: 80px 0;
+    text-align: center;
+    background-attachment: scroll;
+    position: relative;
+    z-index: 1;
+    color: rgb(24, 1, 1);
+    margin-bottom: 40px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px var(--shadow-light);
+    border-radius: 0;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/image1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+    border-radius: 0;
+}
+
+.hero-content {
+    text-align: center;
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    max-width: var(--max-content-width, 1200px);
+    margin: 0 auto;
+    padding: 0 20px 0 20px;
+}
+
+.hero-content h2 {
+    font-size: 3.5em;
+    color: rgb(112, 13, 13);
+    margin-top: 50px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    animation: fadeInText 1s ease-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content p {
+    font-size: 1.3em;
+    color: rgb(99, 11, 11);
+    margin-bottom: 40px;
+    animation: fadeInText 1.2s ease-out 0.2s forwards;
+    opacity: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+.hero-buttons .btn {
+    margin: 0 15px 15px 0;
+    min-width: 180px;
+    padding: 14px 30px;
+    font-size: 1.1em;
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    animation: zoomIn 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* ---------------- Info Sections ---------------- */
+.info-section {
+    padding: 60px 0;
+    text-align: center;
+    background-color: transparent;
+    margin-bottom: 10px;
+    border-radius: 0;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    box-shadow: none;
+}
+
+.info-section h2 {
+    font-size: 2.8em;
+    color: var(--secondary-color);
+    margin-bottom: 50px;
+    z-index: 3;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.info-section h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.info-content-full-width {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+/* ---------------- Background Sections ---------------- */
+.about-bg-image,
+.features-bg-image,
+.how-it-works-bg-image,
+.cta-bg-image,
+.contact-bg-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: -30px;
+    padding: 30px 0;
+}
+
+.about-bg-image::before,
+.features-bg-image::before,
+.how-it-works-bg-image::before,
+.cta-bg-image::before,
+.contact-bg-image::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.55);
+    border-radius: 0;
+    z-index: 1;
+}
+
+.about-bg-image { background-image: url('../images/about.png'); min-height: 450px; }
+.features-bg-image { background-image: url('../images/features.png'); min-height: 550px; }
+.how-it-works-bg-image { background-image: url('../images/how_it_works.png'); min-height: 550px; }
+.cta-bg-image { background-image: url('../images/call_to_action.png'); min-height: 350px; }
+.contact-bg-image { background-image: url('../images/contact_us.png'); min-height: 700px; }
+
+/* ---------------- Overlay Text Content ---------------- */
+.about-text-content,
+.features-text-content,
+.how-it-works-text-content,
+.cta-text-content,
+.contact-text-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    padding: 20px 40px;
+    text-align: center;
+    max-width: 100%;
+}
+
+/* ---------------- Feature Grid ---------------- */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+    margin-top: 30px;
+}
+
+.feature-item {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.feature-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+}
+
+.feature-item i {
+    color: var(--tertiary-color);
+    margin-bottom: 20px;
+    font-size: 3.5em;
+}
+
+.feature-item h4 {
+    font-size: 1.8em;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.feature-item p {
+    color: rgb(240, 240, 240);
+    font-size: 1em;
+}
+
+/* ---------------- How It Works ---------------- */
+.how-it-works-text-content .step-detail {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed rgba(255,255,255,0.3);
+}
+
+.how-it-works-text-content .step-detail:last-child {
+    border-bottom: none;
+}
+
+.how-it-works-text-content h3 {
+    font-size: 1.8em;
+    color: var(--tertiary-color);
+    margin-bottom: 10px;
+}
+
+.how-it-works-text-content p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: rgb(240, 240, 240);
+}
+
+/* ---------------- CTA ---------------- */
+.cta-text-content p {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+}
+
+.cta-buttons .btn {
+    margin: 0 10px;
+}
+
+/* ---------------- Contact ---------------- */
+.contact-text-content p,
+.contact-text-content h3 {
+    color: white;
+}
+
+.contact-text-content a {
+    color: var(--tertiary-color);
+    text-decoration: none;
+}
+.contact-text-content a:hover {
+    text-decoration: underline;
+}
+
+/* ---------------- Contact Grid & Form ---------------- */
+.contact-info-grid .info-item {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+.contact-info-grid .info-item h4 { color: white; }
+.contact-info-grid .info-item i { color: var(--tertiary-color); }
+
+.contact-form {
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    padding: 30px;
+    border-radius: 12px;
+    margin-top: 30px;
+    text-align: left;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-form label {
+    color: var(--text-color);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form button.btn-primary {
+    padding: 12px 25px;
+    font-size: 1.1em;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        padding: 50px 0;
+    }
+
+    .hero-content {
+        padding: 0 20px;
+        margin-bottom: 30px;
+    }
+
+    .hero-content h2 {
+        font-size: 2.5em;
+    }
+
+    .hero-buttons .btn {
+        margin: 10px 0;
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .about-bg-image,
+    .features-bg-image,
+    .how-it-works-bg-image,
+    .cta-bg-image,
+    .contact-bg-image {
+        min-height: 350px;
+        padding: 20px;
+    }
+
+    .contact-bg-image {
+        min-height: 600px;
+    }
+
+    .feature-grid,
+    .contact-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .info-section h2 {
+        font-size: 2em;
+    }
+
+    .feature-item,
+    .contact-form {
+        padding: 20px;
+    }
+
+    .hero-content h2 {
+        font-size: 2em;
+    }
+}

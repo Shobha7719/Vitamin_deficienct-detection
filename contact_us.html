@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - VitaDetect{% endblock %}
+
+{% block custom_css %}
+    {# It's good practice to have a dedicated CSS for specific pages #}
+<link rel="stylesheet" href="../static/CSS/style.css">    {# Keep style.css if it has global styles you still need #}
+<link rel="stylesheet" href="../static/CSS/contact.css">{% endblock %}
+
+{% block content %}
+<section class="info-section contact-page-section"> {# Added a new class 'contact-page-section' #}
+    <h2>Contact VitaDetect</h2>
+    <p class="subtitle">We'd love to hear from you!</p>
+
+    <div class="contact-grid">
+        <div class="contact-info-card">
+            <h3>Get in Touch</h3>
+            <p>Whether you have a question about our features, need technical support, or want to provide feedback, our team is ready to help.</p>
+            <ul>
+                <li><i class="fas fa-envelope"></i> Email: <a href="mailto:support@vitadetect.com">support@vitadetect.com</a></li>
+                <li><i class="fas fa-phone"></i> Phone: +1 (555) 123-4567</li>
+                <li><i class="fas fa-map-marker-alt"></i> Address: 123 Health Lane, Wellness City, VC 10001</li>
+            </ul>
+        </div>
+
+        <div class="contact-form-card">
+            <h3>Send Us a Message</h3>
+            <form action="#" method="POST" class="contact-form">
+                <div class="input-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject">
+                </div>
+                <div class="input-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary animate-button">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

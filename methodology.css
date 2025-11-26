@@ -1,0 +1,160 @@
+/* static/CSS/methodology.css */
+
+/* This file extends base.css, so only include methodology-specific styles */
+
+.methodology-section {
+    padding: 60px 0;
+    background-color:translateX(-50%);
+}
+
+.methodology-section h1 {
+    font-size: 2.8em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.methodology-section h1::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+}
+
+.intro-text, .conclusion-text {
+    font-size: 1.15em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.8;
+    max-width: 900px; /* Constrain text width for readability */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.methodology-step {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: var(--shadow-medium);
+    padding: 30px;
+    margin-bottom: 40px;
+    border-left: 5px solid var(--primary-color); /* Emphasize the step */
+}
+
+.methodology-step h2 {
+    font-size: 2em;
+    color: var(--secondary-color);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.methodology-step p {
+    margin-bottom: 15px;
+    font-size: 1.05em;
+    line-height: 1.7;
+}
+
+.methodology-step ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin-bottom: 15px;
+}
+
+.methodology-step ul li {
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.methodology-step ul ul { /* Nested lists */
+    list-style-type: circle;
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.methodology-step strong {
+    color: var(--primary-color);
+}
+
+/* Styling for images within methodology steps */
+.methodology-image-container {
+    text-align: center; /* Center the image and caption */
+    margin: 30px 0; /* Add more vertical space around images */
+}
+
+.methodology-image-container img {
+    max-width: 50%; /* Ensure image fits within its container */
+    height: auto; /* Maintain aspect ratio */
+    border: 1px solid var(--border-color); /* Add a light border */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 5px 15px var(--shadow-light); /* Subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+.methodology-image-container img:hover {
+    transform: translateY(-5px); /* Slightly lift on hover */
+    box-shadow: 0 8px 20px var(--shadow-medium); /* More prominent shadow on hover */
+}
+
+.image-caption {
+    font-style: italic;
+    color: var(--light-text-color);
+    margin-top: 15px;
+    font-size: 0.95em;
+    max-width: 700px; /* Constrain caption width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* Responsive adjustments for methodology page */
+@media (max-width: 768px) {
+    .methodology-section h1 {
+        font-size: 2.2em;
+    }
+    .intro-text, .conclusion-text {
+        font-size: 1em;
+        margin-bottom: 25px;
+    }
+    .methodology-step {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    .methodology-step h2 {
+        font-size: 1.7em;
+    }
+    .methodology-step p {
+        font-size: 0.95em;
+    }
+    .methodology-image-container {
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .methodology-section h1 {
+        font-size: 1.8em;
+    }
+    .methodology-step h2 {
+        font-size: 1.4em;
+    }
+    .methodology-step p {
+        font-size: 0.9em;
+    }
+    .methodology-step ul {
+        padding-left: 15px;
+    }
+    .methodology-image-container {
+        margin: 15px 0;
+    }
+    .image-caption {
+        font-size: 0.85em;
+    }
+}
